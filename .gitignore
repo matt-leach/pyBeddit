@@ -6,4 +6,6 @@ lib/*
 local/*
 *.pyc
 *~
-key.py
+info.py
+main.py
+
