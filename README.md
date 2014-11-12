@@ -6,6 +6,7 @@ Library to connect to the Beddit API.
 
 Usage:
 
+```
 >>> from pyBeddit.clients import BedditClient
 >>> b = BedditClient(api_endpoint="https://cloudapi.beddit.com")
 >>> b.get_token(USERNAME, PASSWORD)
@@ -18,3 +19,4 @@ Usage:
 1415665948
 >>> print sleep.properties.score_amount_of_sleep
 90.0
+```
