@@ -6,9 +6,10 @@ class BedditRequestor(object):
     token = None
     user_id = None
     
-    def __init__(self, token=None, api_endpoint=None):
+    def __init__(self, token=None, api_endpoint=None, user_id=None):
         self.token = token
         self.api_endpoint = api_endpoint
+        self.user_id = user_id
         
     def get_token(self, username, password):   
         

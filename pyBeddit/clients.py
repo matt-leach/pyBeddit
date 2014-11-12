@@ -4,7 +4,7 @@ from pyBeddit.resources import SleepDataResource
 class BedditClient(object):
     
     def __init__(self, token=None, api_endpoint="", user_id=None):
-        self.requestor = BedditRequestor(token=token, api_endpoint=api_endpoint)
+        self.requestor = BedditRequestor(token=token, api_endpoint=api_endpoint, user_id=user_id)
       
       
     def get_token(self, username, password):
@@ -13,6 +13,7 @@ class BedditClient(object):
         except:
             raise Exception("could not authenticate")
         
+        return self.requestor.token, self.requestor.user_id
         
     def get_latest_sleep(self):
         # TODO: no longer hard coded
@@ -24,6 +25,13 @@ class BedditClient(object):
     def get_sleep_scores(self):
         r = self.requestor.get_all_sleeps("2014-01-01", "2015-01-01")
         
-        for sleep_dict in r.json():
-            sleep_resource = SleepDataResource(sleep_dict)
+        sleep_data = {}
+        
+        print r.content
+        
+        for sleep_obj in r.json():
+            sleep_resource = SleepDataResource(sleep_obj)
             print sleep_resource.date, sleep_resource.properties.total_sleep_score
+            sleep_data[sleep_resource.date] = sleep_resource.properties.total_sleep_score
+            
+        return sleep_data
