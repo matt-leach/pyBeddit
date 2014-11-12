@@ -21,11 +21,13 @@ class BedditRequestor(object):
             self.token = content["access_token"]
             self.user_id = content["user"]
         
+        else:
+            raise Exception
+        
         return r
     
     
-    
-    def get_sleeps(self, start_date, end_date):
+    def get_all_sleeps(self, start_date, end_date):
         auth_header = "UserToken %s" % self.token
         headers = {"authorization": auth_header}
         data = {"start_date": start_date, "end_date": end_date}
