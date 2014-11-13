@@ -1,5 +1,6 @@
 from pyBeddit.requestors import BedditRequestor
 from pyBeddit.resources import SleepDataResource
+from collections import OrderedDict
 
 class BedditClient(object):
     
@@ -25,7 +26,7 @@ class BedditClient(object):
     def get_sleep_scores(self):
         r = self.requestor.get_all_sleeps("2014-01-01", "2015-01-01")
         
-        sleep_data = {}
+        sleep_data = OrderedDict()
         
         print r.content
         
