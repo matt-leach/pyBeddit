@@ -8,11 +8,7 @@ class BedditResourceType(type):
     def __init__(self, name, bases, attrs):
         super(BedditResourceType, self).__init__(name, bases, attrs)
 
-        if "fields" in attrs:
-            # be careful with lists and copying
-            self.fields = list(attrs["fields"])
-        else:
-            self.fields = []
+        self.fields = []
         
         for field_name, field_type in attrs.items():
             # Now add each Field defined to the fields attribute
