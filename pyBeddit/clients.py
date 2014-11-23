@@ -2,9 +2,11 @@ from pyBeddit.requestors import BedditRequestor
 from pyBeddit.resources import SleepDataResource
 from collections import OrderedDict
 
+API_ENDPOINT = "https://cloudapi.beddit.com"
+
 class BedditClient(object):
     
-    def __init__(self, token=None, api_endpoint="", user_id=None):
+    def __init__(self, token=None, api_endpoint=API_ENDPOINT, user_id=None):
         self.requestor = BedditRequestor(token=token, api_endpoint=api_endpoint, user_id=user_id)
       
       
