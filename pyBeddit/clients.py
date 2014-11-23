@@ -34,7 +34,6 @@ class BedditClient(object):
         
         for sleep_obj in r.json():
             sleep_resource = SleepDataResource(sleep_obj)
-            print sleep_resource.date, sleep_resource.properties.total_sleep_score
             sleep_data[sleep_resource.date] = sleep_resource.properties.total_sleep_score
             
         return sleep_data
