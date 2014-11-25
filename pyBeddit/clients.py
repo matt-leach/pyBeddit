@@ -1,5 +1,5 @@
 from pyBeddit.requestors import BedditRequestor
-from pyBeddit.resources import SleepDataResource
+from pyBeddit.resources import SleepDataResource, UserProfileResource
 from collections import OrderedDict
 
 API_ENDPOINT = "https://cloudapi.beddit.com"
@@ -18,6 +18,13 @@ class BedditClient(object):
         
         return self.requestor.token, self.requestor.user_id
         
+    def get_user_profile(self):
+        r = self.requestor.get_user()
+        
+        data_dict = r.json()
+        user = UserProfileResource(data_dict)
+        return user
+    
     def get_latest_sleep(self):
         # TODO: no longer hard coded
         r = self.requestor.get_all_sleeps("2014-01-01", "2015-01-01")
@@ -29,9 +36,7 @@ class BedditClient(object):
         r = self.requestor.get_all_sleeps("2014-01-01", "2015-01-01")
         
         sleep_data = OrderedDict()
-        
-        print r.content
-        
+                
         for sleep_obj in r.json():
             sleep_resource = SleepDataResource(sleep_obj)
             sleep_data[sleep_resource.date] = sleep_resource.properties.total_sleep_score

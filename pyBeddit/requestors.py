@@ -27,6 +27,13 @@ class BedditRequestor(object):
         
         return r
     
+    def get_user(self):
+        auth_header = "UserToken %s" % self.token
+        headers = {"authorization": auth_header}
+        
+        r = requests.get("%s/api/v1/user/%s" % (self.api_endpoint, self.user_id), headers=headers)
+        
+        return r
     
     def get_all_sleeps(self, start_date, end_date):
         auth_header = "UserToken %s" % self.token
@@ -35,3 +42,4 @@ class BedditRequestor(object):
         r = requests.get("%s/api/v1/user/%s/sleep" % (self.api_endpoint, self.user_id), data=data, headers=headers)
         
         return r
+

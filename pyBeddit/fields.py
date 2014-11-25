@@ -35,7 +35,11 @@ class integerField(Field):
         try:
             self.data[instance] = int(value)
         except:
-            raise ValueError("Integer value required.")
+            # TODO: null=True?
+            if value is None:
+                self.data[instance] = None
+            else:
+                raise ValueError("Integer value required.")
 
 
 class floatField(Field):
@@ -43,8 +47,12 @@ class floatField(Field):
     def __set__(self, instance, value):
         try:
             self.data[instance] = float(value)
-        except ValueError:
-            raise ValueError("Floate required.")
+        except (ValueError, TypeError):
+            # TODO: null=True?
+            if value is None:
+                self.data[instance] = None
+            else:
+                raise ValueError("Float required.")
 
 
 
@@ -66,7 +74,10 @@ class relatedField(Field):
         
         
         
-        
+class listField(Field):
+    def __set__(self, instance, value):
+        if not isinstance(value, list):
+            raise ValueError("Integer value required.")
         
         
         

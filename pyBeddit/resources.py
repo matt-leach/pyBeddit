@@ -14,7 +14,8 @@ class BedditResourceType(type):
             # Now add each Field defined to the fields attribute
             if fields.Field in type(field_type).__bases__:
                 self.fields.append(field_name)
-
+                
+        self.__slots__ = ", ".join(self.fields)
 
 class BedditResource(object):   
     __metaclass__ = BedditResourceType
@@ -23,9 +24,32 @@ class BedditResource(object):
         
         for field_name, value in data_dict.items():
             try:
+                # Need to check it has the attribute first before setting
+                getattr(self, field_name)
                 setattr(self, field_name, value)
-            except ValueError:
+            except AttributeError:
                 raise Exception("no field %s" % field_name)
+            except ValueError as e:
+                raise Exception("Bad data for field %s: %s" % (field_name, str(e)))
+
+
+
+class UserProfileResource(BedditResource):
+    id = fields.integerField()
+    email = fields.stringField()
+    name = fields.stringField()
+    date_of_birth = fields.dateField() 
+    sex = fields.stringField() # TODO: choices
+    weight = fields.floatField() # TODO: units
+    height = fields.floatField()
+    sleep_time_goal = fields.integerField()
+    tip_audiences = fields.listField()
+    created = fields.stringField()
+    updated = fields.stringField()
+    
+    def __repr__(self):
+        return "< User Profile: %s >" % self.name
+
 
 
 class SleepPropertiesResource(BedditResource):
