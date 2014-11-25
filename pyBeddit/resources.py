@@ -78,7 +78,6 @@ class SleepPropertiesResource(BedditResource):
         return "< Sleep Properties: Score %s >" % self.total_sleep_score
 
 
-
 class SleepDataResource(BedditResource):
     
     date = fields.dateField()
