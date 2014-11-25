@@ -35,6 +35,15 @@ class BedditRequestor(object):
         
         return r
     
+    def put_user(self, update_dict):
+        auth_header = "UserToken %s" % self.token
+        headers = {"authorization": auth_header}
+        
+        r = requests.put("%s/api/v1/user/%s" % (self.api_endpoint, self.user_id), data=json.dumps(update_dict), headers=headers)
+        
+        return r
+    
+    
     def get_all_sleeps(self, start_date, end_date):
         auth_header = "UserToken %s" % self.token
         headers = {"authorization": auth_header}

@@ -21,9 +21,24 @@ class BedditClient(object):
     def get_user_profile(self):
         r = self.requestor.get_user()
         
+        if r.status_code != 200:
+            raise Exception("Unable to retrieve user profile")
+        
         data_dict = r.json()
         user = UserProfileResource(data_dict)
         return user
+    
+    def update_user_profile(self, update_dict):
+        r = self.requestor.put_user(update_dict)
+        
+        if r.status_code != 200:
+            raise Exception("Unable to update user profile")
+        
+        data_dict = r.json()
+        user = UserProfileResource(data_dict)
+        return user
+    
+    
     
     def get_latest_sleep(self):
         # TODO: no longer hard coded
