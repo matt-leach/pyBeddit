@@ -28,7 +28,8 @@ class BedditResource(object):
                 getattr(self, field_name)
                 setattr(self, field_name, value)
             except AttributeError:
-                raise Exception("no field %s" % field_name)
+                pass
+                # raise Exception("no field %s" % field_name)
             except ValueError as e:
                 raise Exception("Bad data for field %s: %s" % (field_name, str(e)))
 
@@ -73,7 +74,7 @@ class SleepPropertiesResource(BedditResource):
     stage_duration_S = fields.floatField()
     score_amount_of_sleep = fields.floatField()
     stage_duration_W = fields.floatField()
-
+    
     def __repr__(self):
         return "< Sleep Properties: Score %s >" % self.total_sleep_score
 
@@ -87,6 +88,8 @@ class SleepDataResource(BedditResource):
     session_range_start = fields.integerField()
     session_range_end = fields.integerField()
     properties = fields.relatedField(SleepPropertiesResource)
+    updated = fields.stringField()
+    tags = fields.stringField()
     
     def __repr__(self):
         return "< Sleep %s >" % (self.date)

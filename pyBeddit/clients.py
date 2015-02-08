@@ -22,6 +22,8 @@ class BedditClient(object):
         r = self.requestor.get_user()
         
         if r.status_code != 200:
+            print r
+            print r.content
             raise Exception("Unable to retrieve user profile")
         
         data_dict = r.json()

@@ -8,6 +8,7 @@ class State(object):
     def __repr__(self):
         return "< %s: %s >" % (self.time, self.meaning)
 
+
 class TimeValueTrack(object):
     items = []
     value_data_type = ""
